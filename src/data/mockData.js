@@ -65,7 +65,7 @@ export const transactionCategories = [
 export const creditCards = [
   {
     id: 1,
-    owner: 'Maria Petrova',
+    owner: 'Maryia Piatsiuk',
     bank: 'Visa Platinum',
     number: '**** 4172',
     expires: '09/28',
@@ -74,7 +74,7 @@ export const creditCards = [
   },
   {
     id: 2,
-    owner: 'Maria Petrova',
+    owner: 'Maryia Piatsiuk',
     bank: 'Travel Rewards',
     number: '**** 9034',
     expires: '04/29',

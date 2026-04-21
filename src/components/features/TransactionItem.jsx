@@ -1,8 +1,7 @@
-import Button from '../ui/Button'
 import { formatCurrency, formatDate } from '../../utils/formatters'
 import styles from './TransactionItem.module.css'
 
-function TransactionItem({ transaction, categoryTitle, selected, onToggle, onDetails }) {
+function TransactionItem({ transaction, categoryTitle, selected, onToggle }) {
   return (
     <article className={styles.item}>
       <label className={styles.checkbox}>
@@ -31,10 +30,6 @@ function TransactionItem({ transaction, categoryTitle, selected, onToggle, onDet
           </span>
         </div>
       </div>
-
-      <Button variant="ghost" onClick={() => onDetails(transaction)}>
-        Details
-      </Button>
     </article>
   )
 }

@@ -264,10 +264,6 @@ function App() {
     })
   }
 
-  const handleShowDetails = (transaction) => {
-    console.log('Transaction details:', transaction)
-  }
-
   return (
     <div className={styles.app}>
       <div className={styles.shell}>
@@ -305,7 +301,6 @@ function App() {
                 selectedIds={selectedIds}
                 onToggleTransaction={handleToggleTransaction}
                 onSelectAll={handleSelectAll}
-                onShowDetails={handleShowDetails}
               />
 
               <div className={styles.controls}>

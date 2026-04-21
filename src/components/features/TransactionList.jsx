@@ -8,7 +8,6 @@ function TransactionList({
   selectedIds,
   onToggleTransaction,
   onSelectAll,
-  onShowDetails,
 }) {
   const allSelected =
     transactions.length > 0 &&
@@ -37,7 +36,6 @@ function TransactionList({
               categoryTitle={categoriesMap[transaction.category] ?? transaction.category}
               selected={selectedIds.includes(transaction.id)}
               onToggle={onToggleTransaction}
-              onDetails={onShowDetails}
             />
           ))
         )}
