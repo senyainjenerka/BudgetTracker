@@ -1,0 +1,49 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  gap: 1.5rem;
+  align-items: flex-start;
+  padding: 1.6rem 1.8rem;
+  background: linear-gradient(135deg, #343946 0%, #505664 100%);
+  color: #ffffff;
+  border-radius: 28px;
+  box-shadow: 0 24px 40px rgba(35, 42, 53, 0.24);
+}
+
+.eyebrow {
+  margin: 0 0 0.45rem;
+  color: rgba(255, 255, 255, 0.7);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.72rem;
+}
+
+.title {
+  margin: 0;
+  font-size: clamp(1.9rem, 4vw, 2.6rem);
+  line-height: 1.05;
+}
+
+.subtitle {
+  margin: 0.6rem 0 0;
+  max-width: 42rem;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+@media (max-width: 900px) {
+  .header {
+    flex-direction: column;
+  }
+
+  .actions {
+    width: 100%;
+    justify-content: flex-start;
+  }
+}

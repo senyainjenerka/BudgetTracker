@@ -1,0 +1,95 @@
+.item {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 1rem;
+  align-items: center;
+  padding: 1rem 0;
+  border-bottom: 1px solid #edf1f5;
+}
+
+.item:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+.checkbox input {
+  width: 1rem;
+  height: 1rem;
+  accent-color: #1ca1c1;
+}
+
+.content {
+  min-width: 0;
+}
+
+.titleRow,
+.meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.title {
+  margin: 0;
+  color: #162033;
+  font-size: 1rem;
+}
+
+.note {
+  margin: 0.25rem 0 0;
+  color: #64748b;
+  font-size: 0.9rem;
+}
+
+.meta {
+  margin-top: 0.65rem;
+  color: #64748b;
+  font-size: 0.88rem;
+  flex-wrap: wrap;
+}
+
+.badge {
+  border-radius: 999px;
+  padding: 0.35rem 0.7rem;
+  font-size: 0.76rem;
+  text-transform: capitalize;
+}
+
+.income {
+  background: rgba(28, 161, 193, 0.12);
+  color: #0f6d83;
+}
+
+.expense {
+  background: rgba(255, 92, 76, 0.12);
+  color: #c23f31;
+}
+
+.amount {
+  font-weight: 700;
+}
+
+.incomeAmount {
+  color: #0f6d83;
+}
+
+.spentAmount {
+  color: #c23f31;
+}
+
+@media (max-width: 760px) {
+  .item {
+    grid-template-columns: auto 1fr;
+  }
+
+  .item > button {
+    grid-column: 2;
+    justify-self: start;
+  }
+
+  .titleRow {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}

@@ -1,0 +1,48 @@
+.app {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top left, rgba(28, 161, 193, 0.18), transparent 26%),
+    radial-gradient(circle at top right, rgba(85, 205, 151, 0.2), transparent 24%),
+    linear-gradient(180deg, #f5f8fb 0%, #edf2f6 100%);
+  color: #162033;
+}
+
+.shell {
+  width: min(1180px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 1.5rem 0 2rem;
+}
+
+.main {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.content {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.topRow {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(280px, 0.95fr);
+  gap: 1.25rem;
+}
+
+.bottomRow {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(300px, 0.9fr);
+  gap: 1.25rem;
+}
+
+.controls {
+  display: grid;
+  gap: 1.25rem;
+}
+
+@media (max-width: 1000px) {
+  .topRow,
+  .bottomRow {
+    grid-template-columns: 1fr;
+  }
+}

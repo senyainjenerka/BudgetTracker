@@ -1,0 +1,42 @@
+import Button from '../ui/Button'
+import { formatCurrency, formatDate } from '../../utils/formatters'
+import styles from './TransactionItem.module.css'
+
+function TransactionItem({ transaction, categoryTitle, selected, onToggle, onDetails }) {
+  return (
+    <article className={styles.item}>
+      <label className={styles.checkbox}>
+        <input checked={selected} onChange={() => onToggle(transaction.id)} type="checkbox" />
+      </label>
+
+      <div className={styles.content}>
+        <div className={styles.titleRow}>
+          <div>
+            <h4 className={styles.title}>{transaction.title}</h4>
+            <p className={styles.note}>{transaction.note}</p>
+          </div>
+          <span className={`${styles.badge} ${styles[transaction.type]}`}>{transaction.type}</span>
+        </div>
+
+        <div className={styles.meta}>
+          <span>{formatDate(transaction.date)}</span>
+          <span>{categoryTitle}</span>
+          <span
+            className={`${styles.amount} ${
+              transaction.type === 'income' ? styles.incomeAmount : styles.spentAmount
+            }`}
+          >
+            {transaction.type === 'income' ? '+' : '-'}
+            {formatCurrency(transaction.amount)}
+          </span>
+        </div>
+      </div>
+
+      <Button variant="ghost" onClick={() => onDetails(transaction)}>
+        Details
+      </Button>
+    </article>
+  )
+}
+
+export default TransactionItem
