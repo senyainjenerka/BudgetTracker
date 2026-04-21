@@ -1,57 +1,110 @@
 # BudgetTracker
 
-Учебное React-приложение для лабораторной работы по теме создания пользовательского интерфейса с использованием React.
+BudgetTracker is a React-based finance dashboard for tracking personal income and expenses in a clear visual format.  
+The application is designed as a small single-page interface where a user can review transactions, filter financial activity, inspect category spending, and add new records.
 
-Проект реализован для варианта 15: **Финтех "BudgetTracker"**.
+## What This Project Is For
 
-## Цель работы
+This project represents a budgeting dashboard interface focused on everyday money management.
 
-Освоить:
-- компонентный подход в React
-- создание функциональных компонентов
-- передачу данных через `props`
-- работу с JSX
-- базовую организацию интерфейса SPA
-- подготовку компонентной базы для дальнейшей работы с состоянием и API
+With this application, a user can:
 
-## Технологии
+- review a list of transactions
+- switch between months
+- filter transactions by category
+- filter transactions by date range
+- filter transactions by transaction type
+- search transactions by title
+- add new income or expense transactions
+- see how financial data affects totals, categories, and charts
 
-- React
-- Vite
-- JavaScript (ES6+)
-- CSS Modules
+## What Is Implemented
 
-## Реализованный функционал
+The application already includes a complete UI with reusable React components and mock financial data.
 
-В приложении реализованы требования лабораторной работы:
+### Core features
 
-- минимум 5 компонентов
-- композитные компоненты
-- моковые данные
-- обработчики событий
-- стилизация компонентов
-- фильтрация по дате и категории
-- добавление транзакций
+- transaction history view
+- budget summary cards
+- budget categories with progress indicators
+- income and expense chart
+- transaction filters
+- add transaction form
+- month-based navigation
 
-### Основные компоненты
+### Implemented interactions
 
-- `TransactionItem` — отображение одной транзакции
-- `BudgetCategory` — отображение категории бюджета
-- `Chart` — график доходов и расходов
-- `AddTransaction` — форма добавления транзакции
-- `Filter` — фильтрация данных
+- filtering by month
+- filtering by category
+- filtering by transaction type
+- filtering by start and end date
+- searching by transaction title
+- adding new transactions through a controlled form
+- automatic update of totals after adding a transaction
+- automatic update of category statistics
+- automatic update of chart data
 
-### Дополнительные компоненты
+## Main Components
 
-- `Header` — верхняя часть страницы
-- `Topbar` — выбор месяца и отображение количества транзакций
-- `BudgetSummary` — сводка по балансу, доходам и расходам
-- `BudgetCategories` — список категорий бюджета
-- `TransactionList` — список транзакций
-- `CreditCards` — визуальный блок с банковскими картами
-- `Button`, `Card` — базовые переиспользуемые UI-компоненты
+The project is built from reusable React components.
 
-## Структура проекта
+### Feature components
+
+- `TransactionItem` — displays a single transaction
+- `BudgetCategory` — displays a spending category with budget progress
+- `Chart` — shows income and expense activity
+- `AddTransaction` — provides a form for creating a new transaction
+- `Filter` — controls filtering of visible data
+
+### Additional components
+
+- `Header` — top section of the dashboard
+- `Topbar` — month selector and current result count
+- `BudgetSummary` — summary cards for balance, income, and expenses
+- `BudgetCategories` — grouped list of budget categories
+- `TransactionList` — rendered list of filtered transactions
+- `CreditCards` — visual finance card block
+- `Button` and `Card` — reusable UI building blocks
+
+## Data
+
+The project uses mock data instead of a backend API.
+
+The mock data includes:
+
+- transactions
+- budget categories
+- budget summary templates
+- credit card display data
+- available month options
+
+Transaction dates cover the period from:
+
+- `2025-04-01`
+- to `2026-04-21`
+
+## How the Interface Works
+
+The main application logic is located in `src/App.jsx`.
+
+The app:
+
+- stores transactions in React state
+- filters visible records based on user input
+- recalculates totals dynamically
+- recalculates category spending dynamically
+- rebuilds chart data from the currently visible month and filters
+- inserts newly added transactions directly into the current dataset
+
+When a user adds a new transaction:
+
+- the transaction is added to the list
+- the selected month changes to the month of that transaction
+- totals are updated
+- category data is updated
+- the chart is updated
+
+## Project Structure
 
 ```text
 src/
@@ -68,129 +121,57 @@ src/
   main.jsx
 ```
 
-## Моковые данные
+## Technologies
 
-Файл [src/data/mockData.js](src/data/mockData.js) содержит:
+- React
+- Vite
+- JavaScript (ES6+)
+- CSS Modules
 
-- список транзакций
-- категории бюджета
-- шаблоны бюджетных карточек
-- список месяцев для отображения данных
-- данные для карточек
+## How To Run
 
-Диапазон дат транзакций:
-
-- от **01.04.2025**
-- до **21.04.2026**
-
-## Логика приложения
-
-Главная логика находится в [src/App.jsx](src/App.jsx).
-
-Там реализованы:
-
-- хранение списка транзакций в состоянии
-- фильтрация по:
-  - месяцу
-  - категории
-  - типу операции
-  - диапазону дат
-  - названию транзакции
-- пересчет бюджета
-- пересчет категорий
-- обновление графика
-- добавление новой транзакции через форму
-
-## Как запустить проект
-
-1. Установить зависимости:
+Install dependencies:
 
 ```bash
 npm install
 ```
 
-2. Запустить проект в режиме разработки:
+Start the development server:
 
 ```bash
 npm run dev
 ```
 
-3. Открыть адрес, который покажет Vite в терминале.
-
-## Полезные команды
+Create a production build:
 
 ```bash
-npm run dev
 npm run build
+```
+
+Preview the production build:
+
+```bash
 npm run preview
+```
+
+Run ESLint:
+
+```bash
 npm run lint
 ```
 
-## Как показать работу функций
+## Example Usage
 
-### 1. Фильтрация по месяцу
+Here is a simple way to demonstrate the project:
 
-В верхнем блоке выбрать другой месяц.
+1. Open the app in the browser.
+2. Change the selected month in the top bar.
+3. Apply a category filter in the filter panel.
+4. Set a custom date range.
+5. Add a new transaction with the form.
+6. Observe how the transaction list, totals, category blocks, and chart update immediately.
 
-Результат:
-- меняется список транзакций
-- обновляются категории
-- перестраивается график
+## Current Status
 
-### 2. Фильтрация по категории
-
-В блоке `Filter` выбрать нужную категорию, например `Food` или `Housing`.
-
-Результат:
-- в списке остаются только транзакции выбранной категории
-- график отображает только подходящие данные
-
-### 3. Фильтрация по дате
-
-Указать `Start date` и `End date`.
-
-Результат:
-- остаются только транзакции внутри заданного диапазона
-
-### 4. Добавление транзакции
-
-В блоке `Add Transaction` заполнить форму:
-
-- название
-- сумму
-- тип
-- категорию
-- дату
-- заметку
-
-После нажатия кнопки добавления:
-
-- транзакция появляется в списке
-- обновляется счетчик элементов
-- обновляются суммы бюджета
-- пересчитываются категории
-- меняется график
-
-## Пример сценария демонстрации
-
-Для защиты лабораторной можно показать такой сценарий:
-
-1. Запустить приложение.
-2. Показать, что данные охватывают период с апреля 2025 по апрель 2026.
-3. Переключить месяц.
-4. Отфильтровать транзакции по категории.
-5. Ограничить отображение по диапазону дат.
-6. Добавить новую транзакцию.
-7. Показать, что интерфейс обновился без перезагрузки страницы.
-
-## Особенности реализации
-
-- приложение построено на функциональных компонентах
-- данные передаются через `props`
-- стили компонентов изолированы с помощью CSS Modules
-- интерфейс построен как SPA
-- используются моковые данные вместо реального API
-
-## Вывод
-
-В рамках лабораторной работы было создано React-приложение BudgetTracker, демонстрирующее компонентный подход, использование JSX, передачу данных через `props`, работу с моковыми данными, фильтрацию и добавление записей.
+This project is a finished frontend prototype built with React.  
+It is suitable for demonstrating component-based UI development, state-driven rendering, controlled forms, filtering logic, and reusable interface design.
