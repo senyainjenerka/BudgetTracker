@@ -30,3 +30,45 @@ The project is designed to present financial data in a simple and visual way. It
 - Vite
 - JavaScript
 - CSS Modules
+
+## Project Structure
+
+The project is now organized so components, styles, data, utilities, and tests are separated more clearly:
+
+```text
+src/
+├── components/
+│   ├── common/
+│   │   ├── Header/
+│   │   └── Topbar/
+│   ├── ui/
+│   │   ├── Button/
+│   │   └── Card/
+│   └── features/
+│       ├── AddTransaction/
+│       ├── BudgetCategories/
+│       ├── BudgetCategory/
+│       ├── BudgetChart/
+│       ├── BudgetSummary/
+│       ├── Chart/
+│       ├── CreditCards/
+│       ├── Filter/
+│       ├── ReportGenerator/
+│       ├── TransactionItem/
+│       └── TransactionList/
+├── styles/
+│   ├── components/
+│   │   ├── common/
+│   │   ├── ui/
+│   │   └── features/
+│   ├── pages/
+│   └── globals.css
+├── data/
+├── utils/
+├── App.jsx
+└── main.jsx
+
+tests/
+├── components/
+└── utils/
+```

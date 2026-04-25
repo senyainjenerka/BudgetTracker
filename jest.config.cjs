@@ -11,9 +11,9 @@ module.exports = {
   },
   collectCoverageFrom: [
     'src/utils/budget.js',
-    'src/components/features/TransactionItem.jsx',
-    'src/components/features/BudgetChart.jsx',
-    'src/components/features/ReportGenerator.jsx',
+    'src/components/features/TransactionItem/index.jsx',
+    'src/components/features/BudgetChart/index.jsx',
+    'src/components/features/ReportGenerator/index.jsx',
   ],
   coverageThreshold: {
     global: {

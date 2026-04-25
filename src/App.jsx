@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react'
-import styles from './App.module.css'
+import styles from './styles/pages/App.module.css'
 import {
   budgetCategories,
   budgetTemplates,
@@ -16,8 +16,8 @@ import CreditCards from './components/features/CreditCards'
 import Filter from './components/features/Filter'
 import ReportGenerator from './components/features/ReportGenerator'
 import TransactionList from './components/features/TransactionList'
-import Header from './components/layout/Header'
-import Topbar from './components/layout/Topbar'
+import Header from './components/common/Header'
+import Topbar from './components/common/Topbar'
 import {
   calculateBalance,
   generateReport,
