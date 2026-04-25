@@ -5,7 +5,12 @@ function TransactionItem({ transaction, categoryTitle, selected, onToggle }) {
   return (
     <article className={styles.item}>
       <label className={styles.checkbox}>
-        <input checked={selected} onChange={() => onToggle(transaction.id)} type="checkbox" />
+        <input
+          aria-label={`Select ${transaction.title}`}
+          checked={selected}
+          onChange={() => onToggle(transaction.id)}
+          type="checkbox"
+        />
       </label>
 
       <div className={styles.content}>

@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import styles from './App.module.css'
 import {
   budgetCategories,
@@ -8,15 +8,22 @@ import {
   monthOptions,
   transactionCategories,
 } from './data/mockData'
-import Chart from './components/features/Chart'
 import AddTransaction from './components/features/AddTransaction'
+import BudgetChart from './components/features/BudgetChart'
 import BudgetCategories from './components/features/BudgetCategories'
 import BudgetSummary from './components/features/BudgetSummary'
 import CreditCards from './components/features/CreditCards'
 import Filter from './components/features/Filter'
+import ReportGenerator from './components/features/ReportGenerator'
 import TransactionList from './components/features/TransactionList'
 import Header from './components/layout/Header'
 import Topbar from './components/layout/Topbar'
+import {
+  calculateBalance,
+  generateReport,
+  groupTransactionsForChart,
+  isWithinDateRange,
+} from './utils/budget'
 
 const openingBalance = 10500
 const defaultFilters = {
@@ -25,85 +32,6 @@ const defaultFilters = {
   type: 'all',
   startDate: '',
   endDate: '',
-}
-
-const isWithinDateRange = (transactionDate, startDate, endDate) => {
-  if (!startDate && !endDate) {
-    return true
-  }
-
-  const currentDate = new Date(transactionDate)
-
-  if (startDate && currentDate < new Date(startDate)) {
-    return false
-  }
-
-  if (endDate && currentDate > new Date(endDate)) {
-    return false
-  }
-
-  return true
-}
-
-const groupTransactionsForChart = (transactions, period) => {
-  const expenseTransactions = transactions.filter((item) => item.type === 'expense')
-  const incomeTransactions = transactions.filter((item) => item.type === 'income')
-
-  if (period === 'month') {
-    const buckets = [
-      { label: 'Week 1', income: 0, spent: 0, matcher: (day) => day <= 7 },
-      { label: 'Week 2', income: 0, spent: 0, matcher: (day) => day >= 8 && day <= 14 },
-      { label: 'Week 3', income: 0, spent: 0, matcher: (day) => day >= 15 && day <= 21 },
-      { label: 'Week 4', income: 0, spent: 0, matcher: (day) => day >= 22 },
-    ]
-
-    incomeTransactions.forEach((transaction) => {
-      const day = new Date(transaction.date).getDate()
-      const bucket = buckets.find((item) => item.matcher(day))
-
-      if (bucket) {
-        bucket.income += transaction.amount
-      }
-    })
-
-    expenseTransactions.forEach((transaction) => {
-      const day = new Date(transaction.date).getDate()
-      const bucket = buckets.find((item) => item.matcher(day))
-
-      if (bucket) {
-        bucket.spent += transaction.amount
-      }
-    })
-
-    return buckets.map(({ label, income, spent }) => ({ label, income, spent }))
-  }
-
-  const currentMonthTransactions = [...transactions].sort(
-    (left, right) => new Date(left.date) - new Date(right.date),
-  )
-
-  const dailyMap = new Map()
-
-  currentMonthTransactions.forEach((transaction) => {
-    const label = new Intl.DateTimeFormat('en-US', {
-      month: 'short',
-      day: 'numeric',
-    }).format(new Date(transaction.date))
-
-    if (!dailyMap.has(label)) {
-      dailyMap.set(label, { label, income: 0, spent: 0 })
-    }
-
-    const currentItem = dailyMap.get(label)
-
-    if (transaction.type === 'income') {
-      currentItem.income += transaction.amount
-    } else {
-      currentItem.spent += transaction.amount
-    }
-  })
-
-  return Array.from(dailyMap.values()).slice(-7)
 }
 
 function App() {
@@ -145,10 +73,12 @@ function App() {
   const totalSpent = transactions
     .filter((transaction) => transaction.type === 'expense')
     .reduce((sum, transaction) => sum + transaction.amount, 0)
+  const selectedMonthLabel =
+    monthOptions.find((option) => option.value === selectedMonth)?.label ?? selectedMonth
 
   const summaryItems = budgetTemplates.map((item) => {
     if (item.id === 'balance') {
-      return { ...item, amount: openingBalance + totalIncome - totalSpent }
+      return { ...item, amount: calculateBalance(transactions, openingBalance) }
     }
 
     if (item.id === 'income') {
@@ -205,12 +135,15 @@ function App() {
         isWithinDateRange(transaction.date, filters.startDate, filters.endDate),
     )
     .reduce((sum, transaction) => sum + transaction.amount, 0)
-
-  useEffect(() => {
-    setSelectedIds((current) =>
-      current.filter((id) => filteredTransactions.some((transaction) => transaction.id === id)),
-    )
-  }, [filteredTransactions])
+  const report = useMemo(
+    () => generateReport(filteredTransactions, openingBalance, transactionCategories),
+    [filteredTransactions],
+  )
+  const visibleSelectedIds = useMemo(
+    () =>
+      selectedIds.filter((id) => filteredTransactions.some((transaction) => transaction.id === id)),
+    [selectedIds, filteredTransactions],
+  )
 
   const handleFilterChange = (field, value) => {
     setFilters((current) => {
@@ -284,7 +217,7 @@ function App() {
             <BudgetSummary items={summaryItems} />
 
             <section className={styles.topRow}>
-              <Chart
+              <BudgetChart
                 data={chartData}
                 period={chartPeriod}
                 onPeriodChange={setChartPeriod}
@@ -298,7 +231,7 @@ function App() {
               <TransactionList
                 transactions={filteredTransactions}
                 categoriesMap={categoryMap}
-                selectedIds={selectedIds}
+                selectedIds={visibleSelectedIds}
                 onToggleTransaction={handleToggleTransaction}
                 onSelectAll={handleSelectAll}
               />
@@ -311,11 +244,9 @@ function App() {
                   onChange={handleFilterChange}
                   onReset={() => setFilters(defaultFilters)}
                   resultCount={filteredTransactions.length}
-                  selectedMonthLabel={
-                    monthOptions.find((option) => option.value === selectedMonth)?.label ??
-                    selectedMonth
-                  }
+                  selectedMonthLabel={selectedMonthLabel}
                 />
+                <ReportGenerator report={report} selectedMonthLabel={selectedMonthLabel} />
                 <AddTransaction
                   categories={transactionCategories}
                   onAddTransaction={handleAddTransaction}
