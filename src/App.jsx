@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import styles from './styles/pages/App.module.css'
 import {
   budgetCategories,
@@ -139,6 +139,17 @@ function App() {
     () => generateReport(filteredTransactions, openingBalance, transactionCategories),
     [filteredTransactions],
   )
+
+useEffect(() => {
+  console.group('Budget report')
+  console.table(report.spendingByCategory)
+  console.log('Balance:', report.balance)
+  console.log('Income:', report.totalIncome)
+  console.log('Spent:', report.totalSpent)
+  console.groupEnd()
+}, [report])
+
+
   const visibleSelectedIds = useMemo(
     () =>
       selectedIds.filter((id) => filteredTransactions.some((transaction) => transaction.id === id)),
