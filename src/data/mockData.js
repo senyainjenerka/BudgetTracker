@@ -74,7 +74,7 @@ export const creditCards = [
   },
   {
     id: 2,
-    owner: 'Maryia Piatsiuk',
+    owner: 'Ksenia Sereda',
     bank: 'Travel Rewards',
     number: '**** 9034',
     expires: '04/29',
