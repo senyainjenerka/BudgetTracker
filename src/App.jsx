@@ -37,13 +37,18 @@ const defaultFilters = {
 function App() {
   const [transactions, setTransactions] = useState(mockTransactions)
   const [filters, setFilters] = useState(defaultFilters)
-  const [selectedMonth, setSelectedMonth] = useState(monthOptions[0].value)
+  const [selectedMonth, setSelectedMonth] = useState(
+    monthOptions[1]?.value ?? monthOptions[0].value,
+  )
   const [chartPeriod, setChartPeriod] = useState('week')
   const [selectedIds, setSelectedIds] = useState([])
   const [lastAddedTransaction, setLastAddedTransaction] = useState(null)
 
   const monthTransactions = useMemo(
-    () => transactions.filter((transaction) => transaction.date.startsWith(selectedMonth)),
+    () =>
+      selectedMonth === 'all'
+        ? transactions
+        : transactions.filter((transaction) => transaction.date.startsWith(selectedMonth)),
     [transactions, selectedMonth],
   )
 
@@ -208,6 +213,11 @@ useEffect(() => {
     })
   }
 
+  const handleDeleteSelected = () => {
+    setTransactions((current) => current.filter((transaction) => !selectedIds.includes(transaction.id)))
+    setSelectedIds([])
+  }
+
   return (
     <div className={styles.app}>
       <div className={styles.shell}>
@@ -245,6 +255,7 @@ useEffect(() => {
                 selectedIds={visibleSelectedIds}
                 onToggleTransaction={handleToggleTransaction}
                 onSelectAll={handleSelectAll}
+                onDeleteSelected={handleDeleteSelected}
               />
 
               <div className={styles.controls}>

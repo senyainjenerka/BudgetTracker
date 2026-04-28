@@ -1,4 +1,5 @@
 import Card from '../../ui/Card'
+import Button from '../../ui/Button'
 import TransactionItem from '../TransactionItem'
 import styles from '../../../styles/components/features/TransactionList.module.css'
 
@@ -8,6 +9,7 @@ function TransactionList({
   selectedIds,
   onToggleTransaction,
   onSelectAll,
+  onDeleteSelected,
 }) {
   const allSelected =
     transactions.length > 0 &&
@@ -20,9 +22,16 @@ function TransactionList({
           <input type="checkbox" checked={allSelected} onChange={onSelectAll} />
           <span>Select all</span>
         </label>
-        <p className={styles.counter}>
-          Selected: {transactions.filter((transaction) => selectedIds.includes(transaction.id)).length}
-        </p>
+        <div className={styles.toolbarRight}>
+          <p className={styles.counter}>
+            Selected: {transactions.filter((transaction) => selectedIds.includes(transaction.id)).length}
+          </p>
+          {selectedIds.length > 0 && (
+            <Button variant="small" onClick={onDeleteSelected}>
+              Delete Selected
+            </Button>
+          )}
+        </div>
       </div>
 
       <div>

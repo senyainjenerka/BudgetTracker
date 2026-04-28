@@ -19,7 +19,10 @@ const buildMonthOptions = () => {
   return options
 }
 
-export const monthOptions = buildMonthOptions()
+export const monthOptions = [
+  { value: 'all', label: 'All periods' },
+  ...buildMonthOptions(),
+]
 
 export const budgetTemplates = [
   {
