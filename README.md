@@ -3,7 +3,7 @@
 BudgetTracker is a React finance dashboard for tracking personal income and expenses.
 
 The project is designed to present financial data in a simple and visual way. It allows users to review transactions, monitor budget categories, and see how their activity affects totals and charts.
-
+Developed by Maria Petyuk and Ksenia Sereda.
 ## What You Can Do
 
 - view transaction history
